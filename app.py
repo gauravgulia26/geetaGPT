@@ -140,53 +140,50 @@ rag_chain = (
 # %%
 
 
-def main():
-    sample_questions = [
-        "What is the significance of the Kṣetra-Kṣetreśvara concept in the Bhagavad Gita?",
-        "How does the Gita reconcile the concepts of karma and free will?",
-        "Explain the Yoga of Knowledge (Jñāna Yoga) and Yoga of Action (Karma Yoga) as presented in the Gita.",
-        "What is the nature of the Atman according to the Gita, and how does it relate to the Brahman?",
-        "Discuss the concept of Svadharma and its importance in the Gita.",
-    ]
-
-    # Page title and description
-    st.title("🔱 Bhagavad GPT 🔱")
-    css_style = """
-    <style>
-    .st-b {
-        color: green;
-    }
-    </style>
-    """
-
-    # Apply the style
-    st.markdown(css_style, unsafe_allow_html=True)
-    st.write(
-        "🚀This is a chatbot that can answer questions based on the teachings of the Bhagavad Gita."
-    )
-    st.write(
-        "<p class='st-b'>Experimental Release 1.0 ( May contain bugs or limitations )</p>",
-        unsafe_allow_html=True,
-    )
-    st.write("Sample Questions")
-    for _  in sample_questions[:3]:
-        st.caption(_)
-
-    if "question" not in st.session_state:
-        st.session_state.question = ""
-    # Input area and button
-    question = st.text_input(
-        "📿Let Lord Krishna guide you !!", value=st.session_state.question
-    )
-    st.session_state.question = question
-    st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
-    if st.button("Guide Me"):
-        answer = rag_chain.invoke(question)
-        st.write(answer)
+# def main():
+sample_questions = [
+    "What is the significance of the Kṣetra-Kṣetreśvara concept in the Bhagavad Gita?",
+    "How does the Gita reconcile the concepts of karma and free will?",
+    "Explain the Yoga of Knowledge (Jñāna Yoga) and Yoga of Action (Karma Yoga) as presented in the Gita.",
+    "What is the nature of the Atman according to the Gita, and how does it relate to the Brahman?",
+    "Discuss the concept of Svadharma and its importance in the Gita.",
+]
+# Page title and description
+st.title("🔱 Bhagavad GPT 🔱")
+css_style = """
+<style>
+.st-b {
+    color: green;
+}
+</style>
+"""
+# Apply the style
+st.markdown(css_style, unsafe_allow_html=True)
+st.write(
+    "🚀This is a chatbot that can answer questions based on the teachings of the Bhagavad Gita."
+)
+st.write(
+    "<p class='st-b'>Experimental Release 1.0 ( May contain bugs or limitations )</p>",
+    unsafe_allow_html=True,
+)
+st.write("Sample Questions")
+for _ in sample_questions[:3]:
+    st.caption(_)
+if "question" not in st.session_state:
+    st.session_state.question = ""
+# Input area and button
+question = st.text_input(
+    "📿Let Lord Krishna guide you !!", value=st.session_state.question
+)
+st.session_state.question = question
+st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
+if st.button("Guide Me"):
+    answer = rag_chain.invoke(question)
+    st.write(answer)
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 # %%
 # rag_chain.invoke('Should I eat meat?')
 
