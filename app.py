@@ -1,7 +1,7 @@
 # %%
 
 import streamlit as st
-import os
+# import os
 from langchain_core.prompts import ChatPromptTemplate
 # from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.output_parsers import StrOutputParser
@@ -10,8 +10,8 @@ from langchain_groq import ChatGroq
 from langchain_ollama.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.runnables import RunnablePassthrough
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 
 st.set_page_config(
@@ -23,8 +23,8 @@ st.set_page_config(
 
 
 # %%
-os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
-os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
+# os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
+# os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
 
 # %%
 # @st.cache_data
