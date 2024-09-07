@@ -3,17 +3,9 @@
 import streamlit as st
 import os
 from langchain_core.prompts import ChatPromptTemplate
-# from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.output_parsers import StrOutputParser
-# from langchain_ollama.llms import OllamaLLM
 from langchain_groq import ChatGroq
-# from langchain_ollama.embeddings import OllamaEmbeddings
-# from langchain_community.vectorstores import FAISS
 from langchain_core.runnables import RunnablePassthrough
-# from dotenv import load_dotenv
-# from langchain.chains import create_retrieval_chain
-# from langchain.chains.combine_documents import create_stuff_documents_chain
-# load_dotenv()
 
 
 st.set_page_config(
@@ -44,13 +36,14 @@ os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
 # %%
 # corpus = splitter.split_documents(data)
 
+
 # %%
 @st.cache_resource
 def loading_models():
     return ChatGroq(model="gemma2-9b-it", max_tokens=4050)
 
 
-model= loading_models() 
+model = loading_models()
 
 # %%
 # db = FAISS.from_documents(corpus, embeddings)
@@ -140,47 +133,47 @@ rag_chain = {"question": RunnablePassthrough()} | new_prompt | model | StrOutput
 
 # rag_chain = create_retrieval_chain(retriever, document_chain)
 
-# def main():
-sample_questions = [
-    "What is the significance of the Kṣetra-Kṣetreśvara concept in the Bhagavad Gita?",
-    "How does the Gita reconcile the concepts of karma and free will?",
-    "Explain the Yoga of Knowledge (Jñāna Yoga) and Yoga of Action (Karma Yoga) as presented in the Gita.",
-    "What is the nature of the Atman according to the Gita, and how does it relate to the Brahman?",
-    "Discuss the concept of Svadharma and its importance in the Gita.",
-]
-# Page title and description
-st.title("🔱 Bhagavad GPT 🔱")
-st.caption("For Suggestions and Improvement grvgulia007@gmail.com")
-css_style = """
-<style>
-.st-b {
-    color: green;
-}
-</style>
-"""
-# Apply the style
-st.markdown(css_style, unsafe_allow_html=True)
-st.write(
-    "🚀This is a chatbot that can answer questions based on the teachings of the Bhagavad Gita."
-)
-st.write(
-    "<p class='st-b'>Experimental Release 1.0 ( May contain bugs or Limitations )</p>",
-    unsafe_allow_html=True,
-)
-st.write("Sample Questions")
-for _ in sample_questions[:2]:
-    st.caption(_)
 
-prompt = st.chat_input(
-    "📿Ask me anything about Bhagavad Gita"
-)
-if prompt:
-    responses = rag_chain.invoke({"input": prompt})
-    st.write(responses)
+def main():
+    sample_questions = [
+        "What is the significance of the Kṣetra-Kṣetreśvara concept in the Bhagavad Gita?",
+        "How does the Gita reconcile the concepts of karma and free will?",
+        "Explain the Yoga of Knowledge (Jñāna Yoga) and Yoga of Action (Karma Yoga) as presented in the Gita.",
+        "What is the nature of the Atman according to the Gita, and how does it relate to the Brahman?",
+        "Discuss the concept of Svadharma and its importance in the Gita.",
+    ]
+    # Page title and description
+    st.title("🔱 Bhagavad GPT 🔱")
+    st.caption("For Suggestions and Improvement grvgulia007@gmail.com")
+    css_style = """
+    <style>
+    .st-b {
+        color: green;
+    }
+    </style>
+    """
+    # Apply the style
+    st.markdown(css_style, unsafe_allow_html=True)
+    st.write(
+        "🚀This is a chatbot that can answer questions based on the teachings of the Bhagavad Gita."
+    )
+    st.write(
+        "<p class='st-b'>Experimental Release 1.0 ( May contain bugs or Limitations )</p>",
+        unsafe_allow_html=True,
+    )
+    st.write("Sample Questions")
+    for _ in sample_questions[:2]:
+        st.caption(_)
+
+    prompt = st.chat_input("📿Ask me anything about Bhagavad Gita")
+    if prompt:
+        with st.spinner("🛕 Searching for the answer"):
+            responses = rag_chain.invoke({"input": prompt})
+            st.write(responses)
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
 # %%
 # rag_chain.invoke('Should I eat meat?')
 
