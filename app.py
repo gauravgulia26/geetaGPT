@@ -150,6 +150,7 @@ sample_questions = [
 ]
 # Page title and description
 st.title("🔱 Bhagavad GPT 🔱")
+st.caption("For Suggestions and Improvement grvgulia007@gmail.com")
 css_style = """
 <style>
 .st-b {
@@ -167,15 +168,15 @@ st.write(
     unsafe_allow_html=True,
 )
 st.write("Sample Questions")
-for _ in sample_questions[:3]:
+for _ in sample_questions[:2]:
     st.caption(_)
+
 prompt = st.chat_input(
     "📿Ask me anything about Bhagavad Gita"
 )
 if prompt:
     responses = rag_chain.invoke({"input": prompt})
     st.write(responses)
-st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
 
 
 # if __name__ == "__main__":
