@@ -10,10 +10,10 @@ from langchain_groq import ChatGroq
 # from langchain_ollama.embeddings import OllamaEmbeddings
 # from langchain_community.vectorstores import FAISS
 from langchain_core.runnables import RunnablePassthrough
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 # from langchain.chains import create_retrieval_chain
 # from langchain.chains.combine_documents import create_stuff_documents_chain
-load_dotenv()
+# load_dotenv()
 
 
 st.set_page_config(
