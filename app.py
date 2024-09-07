@@ -163,24 +163,19 @@ st.write(
     "🚀This is a chatbot that can answer questions based on the teachings of the Bhagavad Gita."
 )
 st.write(
-    "<p class='st-b'>Experimental Release 1.0 ( May contain bugs or limitations )</p>",
+    "<p class='st-b'>Experimental Release 1.0 ( May contain bugs or Limitations )</p>",
     unsafe_allow_html=True,
 )
 st.write("Sample Questions")
 for _ in sample_questions[:3]:
     st.caption(_)
-if "question" not in st.session_state:
-    st.session_state.question = ""
-# Input area and button
-question = st.text_input(
-    "📿Let Lord Krishna guide you !!", value=st.session_state.question
+prompt = st.chat_input(
+    "📿Ask me anything about Bhagavad Gita"
 )
-st.session_state.question = question
-st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
-prompt = st.chat_input("Ask me anything about Bhagavad Gita")
 if prompt:
-    responses = rag_chain.invoke({"input": question})
+    responses = rag_chain.invoke({"input": prompt})
     st.write(responses)
+st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
 
 
 # if __name__ == "__main__":
