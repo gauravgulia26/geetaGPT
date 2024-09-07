@@ -7,12 +7,12 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 # from langchain_ollama.llms import OllamaLLM
 from langchain_groq import ChatGroq
-from langchain_ollama.embeddings import OllamaEmbeddings
-from langchain_community.vectorstores import FAISS
+# from langchain_ollama.embeddings import OllamaEmbeddings
+# from langchain_community.vectorstores import FAISS
 from langchain_core.runnables import RunnablePassthrough
 from dotenv import load_dotenv
-from langchain.chains import create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
+# from langchain.chains import create_retrieval_chain
+# from langchain.chains.combine_documents import create_stuff_documents_chain
 load_dotenv()
 
 
@@ -47,12 +47,11 @@ os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
 # %%
 @st.cache_resource
 def loading_models():
-    return ChatGroq(model="gemma2-9b-it", max_tokens=4050), OllamaEmbeddings(
-        model="gemma2:9b"
-    )
+    return ChatGroq(model="gemma2-9b-it", max_tokens=4050)
 
 
-model, embeddings = loading_models()[0], loading_models()[1]  
+
+model= loading_models() 
 
 # %%
 # db = FAISS.from_documents(corpus, embeddings)
@@ -61,20 +60,20 @@ model, embeddings = loading_models()[0], loading_models()[1]
 # db.save_local("bhagvatgeeta_faiss")
 
 # %%
-@st.cache_resource
-def loading_db():
-    return FAISS.load_local(
-        "bhagvatgeeta_faiss", embeddings=embeddings, allow_dangerous_deserialization=True
-    )
+# @st.cache_resource
+# def loading_db():
+#     return FAISS.load_local(
+#         "bhagvatgeeta_faiss", embeddings=embeddings, allow_dangerous_deserialization=True
+#     )
 
-db = loading_db()   
+# db = loading_db()   
 
 # %%
 # query = "What is the meaning of life?"
 # results = db.similarity_search(query, k=1)
 
 # %%
-retriever = db.as_retriever()
+# retriever = db.as_retriever()
 # prompt = hub.pull('rlm/rag-prompt')
 
 
@@ -121,8 +120,8 @@ Guidelines:
     In-text support: Include relevant shlokas from the Gita to support the response.
     Uncertainty: If unsure, demonstrate humility and ask for further guidance.
 
-Context:
-{context}
+question:
+{question}
 
 """
 
@@ -130,19 +129,14 @@ Context:
 new_prompt = ChatPromptTemplate([prompt_template])
 
 
-# rag_chain = (
-#     {"context": retriever, "question": RunnablePassthrough()}
-#     | new_prompt
-#     | model
-#     | StrOutputParser()
-# )
+rag_chain = {"question": RunnablePassthrough()} | new_prompt | model | StrOutputParser()
 
 # %%
-document_chain = create_stuff_documents_chain(model, prompt=new_prompt)
+# document_chain = create_stuff_documents_chain(model, prompt=new_prompt)
 # question_answer_chain = create_stuff_documents_chain(model, new_prompt)
 # %%
 
-rag_chain = create_retrieval_chain(retriever, document_chain)
+# rag_chain = create_retrieval_chain(retriever, document_chain)
 
 # def main():
 sample_questions = [
@@ -183,7 +177,7 @@ st.session_state.question = question
 st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
 if st.button("Guide Me"):
     responses = rag_chain.invoke({"input": question})
-    st.write(responses['answer'])
+    st.write(responses)
 
 
 # if __name__ == "__main__":
