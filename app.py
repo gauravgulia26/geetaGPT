@@ -50,7 +50,6 @@ def loading_models():
     return ChatGroq(model="gemma2-9b-it", max_tokens=4050)
 
 
-
 model= loading_models() 
 
 # %%
@@ -66,7 +65,7 @@ model= loading_models()
 #         "bhagvatgeeta_faiss", embeddings=embeddings, allow_dangerous_deserialization=True
 #     )
 
-# db = loading_db()   
+# db = loading_db()
 
 # %%
 # query = "What is the meaning of life?"
@@ -178,7 +177,8 @@ question = st.text_input(
 )
 st.session_state.question = question
 st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
-if st.button("Guide Me"):
+prompt = st.chat_input("Ask me anything about Bhagavad Gita")
+if prompt:
     responses = rag_chain.invoke({"input": question})
     st.write(responses)
 
