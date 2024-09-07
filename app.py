@@ -182,8 +182,6 @@ question = st.text_input(
 st.session_state.question = question
 st.caption('For Suggestions and Improvement grvgulia007@gmail.com')
 if st.button("Guide Me"):
-    # rag_chain.stream(question)
-    # answer = rag_chain.invoke(question)
     responses = rag_chain.invoke({"input": question})
     st.write(responses['answer'])
 
