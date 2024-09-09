@@ -9,6 +9,8 @@ st.set_page_config(layout="wide", page_title="GitaGPT", page_icon="🔱")
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
+from streamlit_extras.streaming_write import write
+import time
 
 
 load_dotenv()
@@ -136,6 +138,11 @@ sample_questions = [
 ]
 
 
+def streaming_write(text):
+    for _ in text.split():
+        yield _ + " "
+        time.sleep(0.025)
+
 def main():
     with st.sidebar:
         st.markdown(
@@ -169,9 +176,9 @@ def main():
 
     prompt = st.chat_input("Ask me anything about Bhagavad Gita")
     if prompt:
-        with st.spinner("Searching for the answer..."):
+        with st.spinner("Thinking..."):
             response = retrieval_chain.invoke({"input": prompt})["answer"]
-            st.write(response)
+            write(streaming_write(response))
 
 
 if __name__ == "__main__":
