@@ -32,10 +32,12 @@ embeddings = st.session_state["embeddings"]
 
 
 # %%
+
+index_path = os.path.join(os.getcwd(), "bhagvatgeeta_new")
 @st.cache_resource
 def loading_db():
     return FAISS.load_local(
-        "/home/skynet/Documents/Gen_ai/GeetaGpt/notebooks/bhagvatgeeta_new",
+        index_path,
         embeddings=embeddings,
         allow_dangerous_deserialization=True,
     )
