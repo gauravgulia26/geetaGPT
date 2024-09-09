@@ -138,7 +138,26 @@ sample_questions = [
 
 def main():
     with st.sidebar:
-        st.title("🔱 Bhagavad GPT 🔱")
+        st.markdown(
+            """
+        <style>
+        .st-b {
+            font-size: 12px;
+            color: white;
+            background-color: black;
+            border-radius: 14px;
+            padding: 3px;
+            text-align: center;
+        }
+        </style>
+        """,
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "<p class='st-b'>GitaGPT can make mistakes. Check your responses.</p>",
+            unsafe_allow_html=True,
+        )
+        st.title("🔱 Gita GPT 🔱")
         st.markdown(
             "🚀This is a ChatBot that can answer questions based on the teachings of the Bhagavad Gita."
         )
