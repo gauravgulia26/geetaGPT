@@ -6,11 +6,9 @@ pypdf
 langchain-text-splitters
 tqdm
 ipywidgets
-faiss-gpu
-groq
 ipywidgets
 langchain-groq
-langchain-ollama
-streamlit
-pillow
-numpy
+streamlit 
+langchain-huggingface
+faiss-gpu
+streamlit-extras
